@@ -8,13 +8,13 @@ from sys import stdout
 
 SUBS_TEXT = '''
 gonewild
-asstastic
 '''
 
 SUBS = [x.strip() for x in SUBS_TEXT.strip().split('\n')]
 while '' in SUBS: SUBS.remove('')
 
 db = DB()
+hoseformat = 'http://redd.it/%s | %s @ r/%s by %s: %s'
 
 last_post = db.get_config('last_post')
 
@@ -33,12 +33,17 @@ while True:
 		if post.selftext != None:
 			# TODO self-text, skip it
 			continue
+		hose = (hoseformat % (post.id,
+		(post.url),
+		(post.subreddit),
+		(post.author),
+		post.title)).encode('utf-8')
+		print(hose)
 		url = post.url
 		shorturl  = 'http://redd.it/%s' % post.id
 		subreddit = post.subreddit
 		author    = post.author
 		title     = post.title
-		print ','.join( [shorturl, url, subreddit, author, title] )
 		db.insert('posts', [post.id, shorturl, url, subreddit, author, title,])
 
 	if len(posts) > 0:
