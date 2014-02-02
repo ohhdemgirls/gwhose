@@ -10,6 +10,7 @@ except ImportError: import sqlite as sqlite3
 
 SCHEMA = {
 	'posts' :
+		'time	   integer,' +
 		'id        text primary key,' +
 		'shorturl  text,' +
 		'url       text,' +
@@ -41,7 +42,7 @@ class DB:
 				self.create_table(key, SCHEMA[key])
 	
 	def debug(self, text):
-		tstamp = time.strftime('[%Y-%m-%dT%H:%M:%SZ]', time.gmtime())
+		tstamp = time.strftime('[%Y-%d-%m/%H:%M:%S]', time.gmtime())
 		text = '%s DB: %s' % (tstamp, text)
 		self.logger.write('%s\n' % text)
 		if self.logger != stderr:
