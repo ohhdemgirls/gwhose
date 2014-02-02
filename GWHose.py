@@ -5,6 +5,7 @@ from DB import DB
 from sys import exit
 from time import sleep
 from sys import stdout
+from time import strftime, gmtime
 
 SUBS_TEXT = '''
 gonewild
@@ -14,7 +15,8 @@ SUBS = [x.strip() for x in SUBS_TEXT.strip().split('\n')]
 while '' in SUBS: SUBS.remove('')
 
 db = DB()
-hoseformat = 'http://redd.it/%s | %s @ r/%s by %s: %s'
+hoseformat = '%s - http://redd.it/%s | %s @ r/%s by %s: %s'
+timestamp = strftime('[%Y-%d-%m/%H:%M:%S]', gmtime())
 
 last_post = db.get_config('last_post')
 
@@ -33,7 +35,8 @@ while True:
 		if post.selftext != None:
 			# TODO self-text, skip it
 			continue
-		hose = (hoseformat % (post.id,
+		hose = (hoseformat % (timestamp,
+		(post.id),
 		(post.url),
 		(post.subreddit),
 		(post.author),
@@ -44,7 +47,7 @@ while True:
 		subreddit = post.subreddit
 		author    = post.author
 		title     = post.title
-		db.insert('posts', [post.id, shorturl, url, subreddit, author, title,])
+		db.insert('posts', [timestamp, post.id, shorturl, url, subreddit, author, title,])
 
 	if len(posts) > 0:
 		last_post = posts[0].id
