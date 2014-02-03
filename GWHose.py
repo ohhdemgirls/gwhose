@@ -16,7 +16,6 @@ while '' in SUBS: SUBS.remove('')
 
 db = DB()
 hoseformat = '%s - http://redd.it/%s | %s @ r/%s by %s: %s'
-timestamp = strftime('[%Y-%d-%m/%H:%M:%S]', gmtime())
 
 last_post = db.get_config('last_post')
 
