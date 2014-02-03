@@ -42,12 +42,13 @@ while True:
 		(post.author),
 		post.title)).encode('utf-8')
 		print(hose)
+		posttime = post.created
 		url = post.url
 		shorturl  = 'http://redd.it/%s' % post.id
 		subreddit = post.subreddit
 		author    = post.author
 		title     = post.title
-		db.insert('posts', [timestamp, post.id, shorturl, url, subreddit, author, title,])
+		db.insert('posts', [posttime, post.id, shorturl, url, subreddit, author, title,])
 
 	if len(posts) > 0:
 		last_post = posts[0].id
