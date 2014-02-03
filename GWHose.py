@@ -35,6 +35,7 @@ while True:
 		if post.selftext != None:
 			# TODO self-text, skip it
 			continue
+		timestamp = strftime('[%Y-%d-%m/%H:%M:%S]', gmtime())
 		hose = (hoseformat % (timestamp,
 		(post.id),
 		(post.url),
