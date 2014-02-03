@@ -48,7 +48,7 @@ while True:
 		subreddit = post.subreddit
 		author    = post.author
 		title     = post.title
-		db.insert('posts', [posttime, post.id, shorturl, url, subreddit, author, title,])
+		db.insert('posts', [posttime, shorturl, url, subreddit, author, title,])
 
 	if len(posts) > 0:
 		last_post = posts[0].id
